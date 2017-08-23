@@ -46,9 +46,10 @@ public class MyNotepad extends JFrame {
 	private JMenuItem saveFile;
 	private JMenuItem exitFile;
 	private JFileChooser fileChooser;
+	private static String DEFAULT_TITLE = "MyNotepad";
 
 	public MyNotepad() {
-		super("MyNotepad");
+		super("Untitled - " + DEFAULT_TITLE);
 		textArea = new JTextArea();
 		menuBar = new JMenuBar();
 		fileChooser = new JFileChooser();
@@ -96,6 +97,7 @@ public class MyNotepad extends JFrame {
 					} finally {
 						pw.flush();
 						pw.close();
+						setTitle(file.getName() + " - " + DEFAULT_TITLE);
 					}
 				}
 			}
