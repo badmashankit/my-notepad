@@ -19,7 +19,13 @@ package com.badmashankit.notepad;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,11 +45,13 @@ public class MyNotepad extends JFrame {
 	private JMenuItem openFile;
 	private JMenuItem saveFile;
 	private JMenuItem exitFile;
+	private JFileChooser fileChooser;
 
 	public MyNotepad() {
 		super("MyNotepad");
 		textArea = new JTextArea();
 		menuBar = new JMenuBar();
+		fileChooser = new JFileChooser();
 		file = new JMenu("File");
 		edit = new JMenu("Edit");
 		format = new JMenu("Format");
@@ -53,10 +61,11 @@ public class MyNotepad extends JFrame {
 		saveFile = new JMenuItem("Save            Ctrl+S");
 		exitFile = new JMenuItem("Exit");
 		setupView();
+		addActionListeners();
 		setVisible(true);
 	}
 
-	public void setupView() {
+	private void setupView() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(500, 500));
 		setLayout(new BorderLayout());
@@ -70,5 +79,26 @@ public class MyNotepad extends JFrame {
 		file.add(openFile);
 		file.add(saveFile);
 		file.add(exitFile);
+	}
+
+	private void addActionListeners() {
+		saveFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (fileChooser.showSaveDialog(rootPane) == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					PrintWriter pw = null;
+					try {
+						pw = new PrintWriter(file);
+						pw.print(textArea.getText());
+					} catch (FileNotFoundException ex) {
+						ex.printStackTrace();
+					} finally {
+						pw.flush();
+						pw.close();
+					}
+				}
+			}
+		});
 	}
 }
