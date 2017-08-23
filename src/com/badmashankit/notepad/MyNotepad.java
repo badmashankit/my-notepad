@@ -48,7 +48,7 @@ public class MyNotepad extends JFrame {
 		edit = new JMenu("Edit");
 		format = new JMenu("Format");
 		help = new JMenu("Help");
-		newFile = new  JMenuItem("New             Ctrl+N");
+		newFile = new JMenuItem("New             Ctrl+N");
 		openFile = new JMenuItem("Open            Ctrl+O");
 		saveFile = new JMenuItem("Save            Ctrl+S");
 		exitFile = new JMenuItem("Exit");

@@ -17,10 +17,18 @@
 
 package com.badmashankit.driver;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import com.badmashankit.notepad.MyNotepad;
 
 public class NotepadDriver {
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		new MyNotepad();
 	}
 }
